@@ -7,15 +7,18 @@ NOTE:I solve problems on other platforms in addition to LeetCode because some pr
 # Contents
 
 Problem Solutions: Each file includes code solutions for specific problems, primarily implemented in C++.
+
 Organized by Platforms: Solutions are organized into directories by platform (e.g., LeetCode, NeetCode, GeeksforGeeks, etc.).
 # Purpose
 This repository is designed to:
 
 Track Progress: Maintain a record of the problems I've solved and the techniques I've used.
+
 Learn and Improve: Serve as a reference for reviewing and enhancing my coding skills.
 # Usage
 
 Browse Solutions: Navigate through the directory structure to find solutions for specific problems or topics.
+
 Contribute: Contributions and suggestions are welcome. Please use issues and pull requests to provide feedback.
 # Contribution
 
