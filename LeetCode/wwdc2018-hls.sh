@@ -1,0 +1,6 @@
+#!/bin/bash
+youtube-dl -f best --hls-prefer-native https://events-delivery.apple.com/18oijbasfvuhbfsdvoijhbsdfvljkb6/m3u8/hls_vod_mvp.m3u8      --output "[2018] [Session 101] Keynote.mp4"
+youtube-dl -f best --hls-prefer-native https://devstreaming-cdn.apple.com/videos/wwdc/2018/102ly3xmvz1ssb1ill/102/hls_vod_mvp.m3u8  --output "[2018] [Session 102] Platforms State of the Union.mp4"
+youtube-dl -f best --hls-prefer-native https://devstreaming-cdn.apple.com/videos/wwdc/2018/715o2fzpdzzzf5f0/715/hls_vod_mvp.m3u8    --output "[2018] [Session 715] Introducing Network.framework - A modern alternative to Sockets.mp4"
+youtube-dl -f best --hls-prefer-native https://devstreaming-cdn.apple.com/videos/wwdc/2018/803lpnlacvg2jsndx/803/hls_vod_mvp.m3u8   --output "[2018] [Session 803] Designing Fluid Interfaces.mp4"
+youtube-dl -f best --hls-prefer-native https://devstreaming-cdn.apple.com/videos/wwdc/2018/805llmiw0zwkox4zhuc/805/hls_vod_mvp.m3u8 --output "[2018] [Session 805] Creating Great AR Experiences.mp4"
