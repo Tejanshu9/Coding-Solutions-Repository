@@ -38,6 +38,7 @@ def create_folder_with_question_number(platform_folder):
     else:
         folder_name = question_number
 
+    # Create the directory structure
     save_path = os.path.join(REPO_PATH, platform_folder, folder_name)
     os.makedirs(save_path, exist_ok=True)
     return save_path
