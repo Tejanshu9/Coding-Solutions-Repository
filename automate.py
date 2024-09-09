@@ -29,34 +29,28 @@ def choose_platform_folder():
     return PLATFORM_FOLDERS.get(choice, 'Others')  # Default to 'Others' if invalid
 
 
-def download_gists(destination_folder):
-    headers = {'Authorization': f'token {GITHUB_TOKEN}'}
-    response = requests.get(GIST_API_URL, headers=headers)
+def create_folder_with_question_number(platform_folder):
+    question_number = input("Enter the question number (or type 'n' if no number): ").strip()
+    
+    if question_number.lower() == 'n':
+        question_name = input("Enter the question name: ").strip()
+        folder_name = question_name
+    else:
+        folder_name = question_number
 
-    if response.status_code != 200:
-        print(f"Failed to fetch gists. Status Code: {response.status_code}")
-        return
+    save_path = os.path.join(REPO_PATH, platform_folder, folder_name)
+    os.makedirs(save_path, exist_ok=True)
+    return save_path
 
-    gists = response.json()
 
-    for gist in gists:
-        gist_id = gist['id']
-        files = gist['files']
+def save_solution_to_folder(save_path):
+    file_name = input("Enter the solution file name (e.g., solution.cpp): ").strip()
+    solution_content = input("Paste the solution content: ")
 
-        for file_name, file_info in files.items():
-            file_url = file_info['raw_url']
-
-            # Download the file content
-            file_response = requests.get(file_url)
-            if file_response.status_code == 200:
-                # Save the file in the specific platform folder
-                save_path = os.path.join(REPO_PATH, destination_folder, file_name)
-                os.makedirs(os.path.dirname(save_path), exist_ok=True)
-                with open(save_path, 'w') as file:
-                    file.write(file_response.text)
-                print(f"Downloaded: {file_name} from Gist ID: {gist_id} to {destination_folder}")
-            else:
-                print(f"Failed to download {file_name}")
+    file_path = os.path.join(save_path, file_name)
+    with open(file_path, 'w') as file:
+        file.write(solution_content)
+    print(f"Solution saved to: {file_path}")
 
 
 def commit_and_push_changes():
@@ -67,7 +61,7 @@ def commit_and_push_changes():
     subprocess.run(['git', 'add', '.'], check=True)
 
     # Commit with a message
-    commit_message = 'Added new solution from Gist'
+    commit_message = 'Added new solution'
     subprocess.run(['git', 'commit', '-m', commit_message], check=True)
 
     # Push to the repository
@@ -79,8 +73,11 @@ if __name__ == '__main__':
     # Step 1: Choose platform folder
     platform_folder = choose_platform_folder()
 
-    # Step 2: Download the Gist files and save to the selected platform folder
-    download_gists(platform_folder)
+    # Step 2: Create a folder with question number or name
+    save_path = create_folder_with_question_number(platform_folder)
 
-    # Step 3: Commit and push to GitHub
+    # Step 3: Save the solution to the created folder
+    save_solution_to_folder(save_path)
+
+    # Step 4: Commit and push to GitHub
     commit_and_push_changes()
