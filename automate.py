@@ -102,4 +102,3 @@ if __name__ == '__main__':
 
     # Step 4: Commit and push to GitHub
     commit_and_push_changes()
-	
