@@ -43,14 +43,34 @@ def create_folder_with_question_number(platform_folder):
     return save_path
 
 
-def save_solution_to_folder(save_path):
-    file_name = input("Enter the solution file name (e.g., solution.cpp): ").strip()
-    solution_content = input("Paste the solution content: ")
+def download_solution_from_gist(file_name, save_path):
+    headers = {'Authorization': f'token {GITHUB_TOKEN}'}
+    response = requests.get(GIST_API_URL, headers=headers)
 
-    file_path = os.path.join(save_path, file_name)
-    with open(file_path, 'w') as file:
-        file.write(solution_content)
-    print(f"Solution saved to: {file_path}")
+    if response.status_code != 200:
+        print(f"Failed to fetch gists. Status Code: {response.status_code}")
+        return
+
+    gists = response.json()
+
+    for gist in gists:
+        files = gist['files']
+        if file_name in files:
+            file_info = files[file_name]
+            file_url = file_info['raw_url']
+
+            # Download the file content
+            file_response = requests.get(file_url)
+            if file_response.status_code == 200:
+                file_path = os.path.join(save_path, file_name)
+                with open(file_path, 'w') as file:
+                    file.write(file_response.text)
+                print(f"Downloaded: {file_name} to {save_path}")
+            else:
+                print(f"Failed to download {file_name}")
+            return
+
+    print(f"File {file_name} not found in any Gist")
 
 
 def commit_and_push_changes():
@@ -76,8 +96,10 @@ if __name__ == '__main__':
     # Step 2: Create a folder with question number or name
     save_path = create_folder_with_question_number(platform_folder)
 
-    # Step 3: Save the solution to the created folder
-    save_solution_to_folder(save_path)
+    # Step 3: Download the solution file from Gist and save it to the created folder
+    file_name = input("Enter the solution file name (e.g., TwoSum.cpp): ").strip()
+    download_solution_from_gist(file_name, save_path)
 
     # Step 4: Commit and push to GitHub
     commit_and_push_changes()
+	
