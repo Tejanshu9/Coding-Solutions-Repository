@@ -1,6 +1,8 @@
 # Coding-Solutions-Repository
 This repository contains my solutions to various coding problems from platforms like LeetCode, NeetCode, GeeksforGeeks, and more. Solutions are organized by topic and implemented in C++. It serves to track my progress and provide a reference for learning and improvement.
 
+NOTE:I solve problems on other platforms in addition to LeetCode because some problems on LeetCode require a premium account for access.So, I solve similar problems available for free on other platforms when necessary.
+
 
 # Contents
 
