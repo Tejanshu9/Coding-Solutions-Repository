@@ -1,10 +1,10 @@
 import os
 import requests
 import subprocess
-import requests
+
 # Configure these variables
-GITHUB_TOKEN = os.getenv('GITHUB_TOKEN')
-GITHUB_USERNAME = 'tejanshu9'
+GITHUB_TOKEN = os.getenv('GITHUB_TOKEN')  # Make sure your environment variable is set
+GITHUB_USERNAME = 'tejanshu9'  # Replace with your GitHub username
 REPO_PATH = '/home/tejanshu/Coding-Solutions-Repository'  # Local path to the GitHub repository
 
 # Platform folders
@@ -29,41 +29,34 @@ def choose_platform_folder():
     return PLATFORM_FOLDERS.get(choice, 'Others')  # Default to 'Others' if invalid
 
 
-def download_gists(platform_folder):
-    # Ensure the platform folder exists
-    if not os.path.exists(platform_folder):
-        os.makedirs(platform_folder)
-    
-    headers = {
-        'Authorization': f'token {GITHUB_TOKEN}',
-        'Accept': 'application/vnd.github.v3+json'
-    }
-    gists_url = 'https://api.github.com/gists/public'
-    
-    try:
-        response = requests.get(gists_url, headers=headers)
-        response.raise_for_status()
-        gists = response.json()
+def download_gists(destination_folder):
+    headers = {'Authorization': f'token {GITHUB_TOKEN}'}
+    response = requests.get(GIST_API_URL, headers=headers)
 
-        for gist in gists:
-            gist_id = gist['id']
-            gist_url = f'https://api.github.com/gists/{gist_id}'
-            gist_response = requests.get(gist_url, headers=headers)
-            gist_response.raise_for_status()
-            gist_data = gist_response.json()
-            
-            for file_name, file_data in gist_data['files'].items():
-                save_path = os.path.join(platform_folder, file_name)
+    if response.status_code != 200:
+        print(f"Failed to fetch gists. Status Code: {response.status_code}")
+        return
+
+    gists = response.json()
+
+    for gist in gists:
+        gist_id = gist['id']
+        files = gist['files']
+
+        for file_name, file_info in files.items():
+            file_url = file_info['raw_url']
+
+            # Download the file content
+            file_response = requests.get(file_url)
+            if file_response.status_code == 200:
+                # Save the file in the specific platform folder
+                save_path = os.path.join(REPO_PATH, destination_folder, file_name)
+                os.makedirs(os.path.dirname(save_path), exist_ok=True)
                 with open(save_path, 'w') as file:
-                    file.write(file_data['content'])
-                    
-        print(f'Gists downloaded and saved to {platform_folder}')
-    except requests.RequestException as e:
-        print(f'Failed to fetch gists. Error: {e}')
-
-# Example call
-platform_folder = 'LeetCode'
-download_gists(platform_folder)
+                    file.write(file_response.text)
+                print(f"Downloaded: {file_name} from Gist ID: {gist_id} to {destination_folder}")
+            else:
+                print(f"Failed to download {file_name}")
 
 
 def commit_and_push_changes():
@@ -71,14 +64,14 @@ def commit_and_push_changes():
     os.chdir(REPO_PATH)
 
     # Stage all changes
-    subprocess.run(['git', 'add', '.'])
+    subprocess.run(['git', 'add', '.'], check=True)
 
     # Commit with a message
     commit_message = 'Added new solution from Gist'
-    subprocess.run(['git', 'commit', '-m', commit_message])
+    subprocess.run(['git', 'commit', '-m', commit_message], check=True)
 
     # Push to the repository
-    subprocess.run(['git', 'push', 'origin', 'main'])
+    subprocess.run(['git', 'push', 'origin', 'main'], check=True)
     print("Changes pushed to GitHub repository")
 
 
