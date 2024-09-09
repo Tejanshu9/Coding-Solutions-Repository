@@ -7,7 +7,9 @@ This repository contains my solutions to various coding problems from platforms 
 I solve problems on platforms other than LeetCode as some problems on LeetCode require a premium account for access. When necessary, I solve similar problems available for free on other platforms.
 
 LeetCode Problems: Solutions are organized in folders named after the LeetCode problem number.
+
 Other Platforms: Folders are named using the LeetCode problem number indicating that it is a similar problem to the LeetCode problem.
+
 Practice Problems: Folders with no number contain problems solved for practice.
 
 Feel free to explore the repository to see my approach to different coding challenges and track my development in problem-solving skills.
