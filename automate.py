@@ -6,6 +6,7 @@ import subprocess
 GITHUB_TOKEN = os.getenv('GITHUB_TOKEN')  # Make sure your environment variable is set
 GITHUB_USERNAME = 'tejanshu9'  # Replace with your GitHub username
 REPO_PATH = '/home/tejanshu/Coding-Solutions-Repository'  # Local path to the GitHub repository
+print(f"GITHUB_TOKEN: {GITHUB_TOKEN}")
 
 # Platform folders
 PLATFORM_FOLDERS = {
