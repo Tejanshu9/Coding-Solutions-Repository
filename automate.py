@@ -50,6 +50,7 @@ def download_solution_from_gist(file_name, save_path):
 
     if response.status_code != 200:
         print(f"Failed to fetch gists. Status Code: {response.status_code}")
+        print(f"Response Content: {response.text}")
         return
 
     gists = response.json()
@@ -61,19 +62,17 @@ def download_solution_from_gist(file_name, save_path):
             file_url = file_info['raw_url']
 
             # Download the file content
-            file_response = requests.get(file_url)
+            file_response = requests.get(file_url, headers=headers)
             if file_response.status_code == 200:
                 file_path = os.path.join(save_path, file_name)
                 with open(file_path, 'w') as file:
                     file.write(file_response.text)
                 print(f"Downloaded: {file_name} to {save_path}")
             else:
-                print(f"Failed to download {file_name}")
+                print(f"Failed to download {file_name}. Status Code: {file_response.status_code}")
             return
 
     print(f"File {file_name} not found in any Gist")
-
-
 def commit_and_push_changes():
     # Navigate to your local repository
     os.chdir(REPO_PATH)
