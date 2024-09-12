@@ -3,7 +3,8 @@ import requests
 import subprocess
 
 # Configure these variables
-GITHUB_TOKEN = os.getenv('GITHUB_TOKEN')
+GITHUB_TOKEN =' REDACTED'
+
 if not GITHUB_TOKEN:
     raise ValueError("GITHUB_TOKEN environment variable is not set")  # Make sure your environment variable is set
 GITHUB_USERNAME = 'Tejanshu9'  # Replace with your GitHub username
