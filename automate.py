@@ -3,7 +3,13 @@ import requests
 import subprocess
 
 # Configure these variables
+<<<<<<< HEAD
 GITHUB_TOKEN = os.getenv('GITHUB_TOKEN')  # Make sure your environment variable is set
+=======
+GITHUB_TOKEN = os.getenv('GITHUB_TOKEN')
+if not GITHUB_TOKEN:
+    raise ValueError("GITHUB_TOKEN environment variable is not set")  # Make sure your environment variable is set
+>>>>>>> 4d8b81f69247977499f281b2490feb44e126b127
 GITHUB_USERNAME = 'Tejanshu9'  # Replace with your GitHub username
 REPO_PATH = '/home/tejanshu/Coding-Solutions-Repository'  # Local path to the GitHub repository
 
