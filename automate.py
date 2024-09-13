@@ -82,9 +82,15 @@ def commit_and_push_changes():
     # Stage all changes
     subprocess.run(['git', 'add', '.'], check=True)
 
-    # Commit with a message
-    commit_message = 'Added new solution'
-    subprocess.run(['git', 'commit', '-m', commit_message], check=True)
+    # Check for changes to commit
+    result = subprocess.run(['git', 'diff', '--cached', '--quiet'], check=False)
+    if result.returncode == 0:
+        print("No changes to commit")
+    else:
+        # Commit with a message
+        commit_message = 'Added new solution'
+        subprocess.run(['git', 'commit', '-m', commit_message], check=True)
+        print("Changes committed")
 
     # Push to the repository
     subprocess.run(['git', 'push', 'origin', 'main'], check=True)
