@@ -3,13 +3,9 @@ import requests
 import subprocess
 
 # Configure these variables
-<<<<<<< HEAD
-GITHUB_TOKEN = os.getenv('GITHUB_TOKEN')  # Make sure your environment variable is set
-=======
 GITHUB_TOKEN = os.getenv('GITHUB_TOKEN')
 if not GITHUB_TOKEN:
     raise ValueError("GITHUB_TOKEN environment variable is not set")  # Make sure your environment variable is set
->>>>>>> 4d8b81f69247977499f281b2490feb44e126b127
 GITHUB_USERNAME = 'Tejanshu9'  # Replace with your GitHub username
 REPO_PATH = '/home/tejanshu/Coding-Solutions-Repository'  # Local path to the GitHub repository
 
@@ -79,6 +75,7 @@ def download_solution_from_gist(file_name, save_path):
             return
 
     print(f"File {file_name} not found in any Gist")
+
 def commit_and_push_changes():
     # Navigate to your local repository
     os.chdir(REPO_PATH)
@@ -108,3 +105,4 @@ if __name__ == '__main__':
 
     # Step 4: Commit and push to GitHub
     commit_and_push_changes()
+
