@@ -75,10 +75,10 @@ def download_solution_from_gist(file_name, save_path):
             return
 
     print(f"File {file_name} not found in any Gist")
-<<<<<<< HEAD
 
-=======
->>>>>>> origin/main
+
+
+
 def commit_and_push_changes():
     # Navigate to your local repository
     os.chdir(REPO_PATH)
