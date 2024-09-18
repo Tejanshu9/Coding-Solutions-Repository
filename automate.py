@@ -15,7 +15,7 @@ PLATFORM_FOLDERS = {
     2: 'GeeksforGeeks',
     3: 'Neetcode',
     4: 'InterviewBit',
-    5: 'LintCode'
+    5: 'LintCode',
 }
 
 # Gist API URL
