@@ -34,6 +34,6 @@ Contribute: Contributions and suggestions are welcome. Please use issues and pul
 # Contribution
 
 Commit Regularly: Solutions are updated regularly to reflect ongoing progress
-and Commits will include problem identifiers but may not have detailed descriptions
+and Commits will include problem identifiers but may not have detailed descriptions.
 # Contact
 For any questions or suggestions, please reach out via GitHub Issues or email.
